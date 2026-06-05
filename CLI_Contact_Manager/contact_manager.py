@@ -1,3 +1,6 @@
+import json
+import os
+
 def add_contact(contacts):
     name = input("Enter the name of your contact: ").strip()
     if not name:
@@ -15,6 +18,7 @@ def add_contact(contacts):
         print("Invalid Input: Email is invalid")
         return
     contacts.append({"name": name, "phone": phone, "email": email})
+    save_contacts(contacts)
     print("Contact added Successfully!")
   
 def view_contacts(contacts):
@@ -61,20 +65,34 @@ def delete_contact(contacts):
     if not contacts:
         print("Contact List is empty")
     else:
-        name_to_delete = input("Enter the name of the contact you want to delete")
+        name_to_delete = input("Enter the name of the contact you want to delete: ")
         found = False
         for index, contact in enumerate(contacts):
             if name_to_delete == contact["name"]:
                 found = True
                 contacts.pop(index)
+                save_contacts(contacts)
                 print("Contact Deleted Successfully")
                 break
         if not found:
             print("No Contact Found!")
         
+def load_contacts():
+    if os.path.exists("contacts.json"):
+        file = open("contacts.json", 'r')
+        contacts = json.load(file)
+        file.close()
+        return contacts
+    else:
+        return []
+
+def save_contacts(contacts):
+    file = open("contacts.json", 'w')
+    json.dump(contacts, file, indent=2)
+    file.close()
 
 
-contacts = []
+contacts = load_contacts()
 while True:
     try:
         choice = int(input("Enter the operation you want to perform: \n1. Add Contact \n2. View Contacts \n3. Search Contact \n4. Delete Contact\n5. Quit\n"))
@@ -93,6 +111,3 @@ while True:
             print("Invalid Input: Input must be between 1 to 5")
     except ValueError:
         print("Invalid Input: Input must be a number")
-
-
-            

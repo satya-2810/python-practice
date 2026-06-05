@@ -1,6 +1,6 @@
 # CLI Contact Manager
 
-A simple Python CLI application to manage contacts.
+A simple Python CLI application to manage contacts with persistent storage using JSON.
 
 ## Features
 
@@ -12,6 +12,7 @@ A simple Python CLI application to manage contacts.
   * Phone Number
 * Delete Contact
 * Input Validation
+* Persistent Contact Storage using `contacts.json`
 
 ## Validations
 
@@ -21,6 +22,16 @@ A simple Python CLI application to manage contacts.
   * contain only digits
   * be exactly 10 digits
 * Email must contain `@`
+
+## Data Persistence
+
+Contacts are automatically saved in:
+
+```text
+contacts.json
+```
+
+This allows contacts to persist even after closing and reopening the application.
 
 ## Run the Project
 
